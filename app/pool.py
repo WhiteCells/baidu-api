@@ -25,8 +25,9 @@ def worker(table_queue: Queue):
     while not table_queue.empty():
         try:
             table_name = table_queue.get_nowait()
-            if table_name := special_dict.get(table_name):
-                process_table(table_name, special_dict[table_name])
+            column = special_dict.get(table_name)
+            if column:
+                process_table(table_name, column)
             else:
                 process_table(table_name, Config.ADDRESS_COLUMN_NAME)
             # process_table(table_name, "completed_address")
